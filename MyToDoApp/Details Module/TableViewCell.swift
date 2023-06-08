@@ -14,29 +14,41 @@ final class TableViewCell: UITableViewCell {
         label.textColor = .lightGray
         return label
     }()
+    
+    
     private lazy var doneButton: UIButton = {
         let action = UIAction { [weak self] _ in
             self?.onComplete()
         }
        let button = UIButton(primaryAction: action)
-        button.setImage(UIImage(systemName: "circle.fill"), for: .normal)
-        button.tintColor = .green
+        button.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .normal)
+        button.tintColor = .systemGreen
         return button
+    }()
+    
+    lazy var image: UIView = {
+        let scrool = UIView()
+        scrool.backgroundColor = .black
+        scrool.isHidden = true
+        return scrool
     }()
     
     private lazy var editButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(systemName: "circle.fill"), for: .normal)
-        button.tintColor = .systemGray4
-//        button.addTarget(self, action: #selector(enterToSecondVC), for: .touchUpInside)
+        button.setImage(UIImage(systemName: "slider.horizontal.3"), for: .normal)
+        button.tintColor = .black
+        button.addTarget(self, action: #selector(presOnButton), for: .allTouchEvents)
         return button
     }()
-
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.isUserInteractionEnabled = false
         setupLayout()
-        
+    }
+    
+    @objc func presOnButton() {
+        image.isHidden = false
     }
     
     required init?(coder: NSCoder) {
@@ -53,6 +65,7 @@ final class TableViewCell: UITableViewCell {
         cell?.layer.cornerRadius = 8
         return cell!
     }
+    
 
     func setup(with task: ToDoTask?) {
         guard let task else { return }
@@ -73,7 +86,9 @@ final class TableViewCell: UITableViewCell {
         addSubview(dateLabel)
         addSubview(doneButton)
         addSubview(editButton)
+        addSubview(image)
 
+        image.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
         doneButton.translatesAutoresizingMaskIntoConstraints = false
@@ -93,7 +108,14 @@ final class TableViewCell: UITableViewCell {
             doneButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -25),
             
             editButton.centerYAnchor.constraint(equalTo: centerYAnchor),
-            editButton.leadingAnchor.constraint(equalTo: doneButton.leadingAnchor, constant: -50)
+            editButton.leadingAnchor.constraint(equalTo: doneButton.leadingAnchor, constant: -50),
+            
+            image.centerYAnchor.constraint(equalTo: centerYAnchor),
+            image.centerXAnchor.constraint(equalTo: centerXAnchor),
+            image.leadingAnchor.constraint(equalTo: leadingAnchor),
+            image.trailingAnchor.constraint(equalTo: trailingAnchor),
+            image.heightAnchor.constraint(equalToConstant: 2)
+            
         ])
     }
 }

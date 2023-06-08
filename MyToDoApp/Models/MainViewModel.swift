@@ -20,7 +20,6 @@ final class MainViewModel: MainViewModelProtocol {
     init() {
         fetchData()
     }
-
     func fetchData() {
         let fetchRequest: NSFetchRequest<ToDoTask> = ToDoTask.fetchRequest()
         do {

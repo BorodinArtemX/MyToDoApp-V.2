@@ -8,8 +8,6 @@ final class ViewController: UIViewController {
     var context: NSManagedObjectContext!
     private var viewModel: MainViewModelProtocol!
     
-    var choices = ["blue-icon","green-icon","red-icon"]
-
     private lazy var mainTableView: UITableView = {
         let tableView = UITableView(frame: view.frame)
         tableView.dataSource = self
@@ -97,8 +95,8 @@ final class ViewController: UIViewController {
         } catch {
             print(error.localizedDescription)
         }
-        viewModel.tasks.remove(at: index.row)
-        mainTableView.deleteRows(at: [index], with: .automatic)
+        //viewModel.tasks.remove(at: index.row)
+       // mainTableView.deleteRows(at: [index], with: .automatic)
     }
 }
 
