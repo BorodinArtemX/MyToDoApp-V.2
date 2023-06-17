@@ -23,7 +23,7 @@ final class MainViewModel: MainViewModelProtocol {
     func fetchData() {
         let fetchRequest: NSFetchRequest<ToDoTask> = ToDoTask.fetchRequest()
         do {
-            tasks = try context!.fetch(fetchRequest).reversed()
+            tasks = try context!.fetch(fetchRequest)
         } catch {
             print(error.localizedDescription)
         }

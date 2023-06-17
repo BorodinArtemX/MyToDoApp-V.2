@@ -95,8 +95,9 @@ final class ViewController: UIViewController {
         } catch {
             print(error.localizedDescription)
         }
-        //viewModel.tasks.remove(at: index.row)
-       // mainTableView.deleteRows(at: [index], with: .automatic)
+        self.viewModel.tasks.remove(at: index.row)
+        self.mainTableView.deleteRows(at: [index], with: UITableView.RowAnimation.automatic)
+        self.mainTableView.reloadData()
     }
 }
 
